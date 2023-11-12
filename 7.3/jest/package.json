@@ -7,6 +7,18 @@
     "test": "jest",
     "coverage": "jest --collectCoverage"
   },
+  "collectCoverageFrom": [
+    "**/*.{js,jsx}"
+  ],
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/coverage/"
+  ],
+  "coverageThreshold": {
+    "branches": 100,
+    "functions": 100,
+    "lines": 100
+  },
   "keywords": [
     "jest",
     "test",
@@ -16,8 +28,5 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^27.5.1"
-  },
-  "directories": {
-    "test": "test"
   }
 }
