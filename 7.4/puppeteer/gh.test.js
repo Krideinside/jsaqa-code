@@ -60,7 +60,7 @@ describe("Github page second tests", () => {
     expect(actual).toContain("Compare Plans");
   });
 
-  test("The page contains Sign in button", async () => {
+  test("Link Sponsors in Dropdown menu", async () => {
     const btnSelector =
       "body > div.logged-out.env-production.page-responsive.header-overlay > div.position-relative.js-header-wrapper > header > div > div.HeaderMenu--logged-out.p-responsive.height-fit.position-lg-relative.d-lg-flex.flex-column.flex-auto.pt-7.pb-4.top-0 > div > nav > ul > li:nth-child(3) > button";
     browser.actions().mouseMove(btnSelector).perform();
