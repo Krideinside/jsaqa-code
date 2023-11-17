@@ -12,7 +12,7 @@ afterEach(() => {
 
 describe("Github page tests", () => {
   beforeEach(async () => {
-    await page.goto("https://github.com/team");
+    await page.goto("https://github.com/team", { timeout: 10000 });
   });
   test("The h1 header content'", async () => {
     const firstLink = await page.$("header div div h1");
@@ -30,18 +30,25 @@ describe("Github page tests", () => {
   });
 
   test("The page contains Sign in button", async () => {
-    const btnSelector =
-      "body > div.logged-out.env-production.page-responsive > div.application-main > main > div.js-build-in.position-relative.overflow-hidden.section-team-hero.build-in-animate > div.position-relative.position-md-absolute.top-md-0.right-md-0.bottom-md-0.left-md-0.z-1 > div > div > div > div > a";
-    await page.waitForSelector(btnSelector, { visible: true });
-    const actual = await page.$eval(btnSelector, (link) => link.textContent);
+    await page.waitForXPath("(//a[contains(text(),'Sign up for free')])[1]");
+    let elHandle = await page.$x(
+      "(//a[contains(text(),'Sign up for free')])[1]"
+    );
+    const actual = await page.evaluate((el) => el.textContent, elHandle[0]);
 
     expect(actual).toContain("Sign up for free");
+    // const btnSelector =
+    //   "body > div.logged-out.env-production.page-responsive > div.application-main > main > div.js-build-in.position-relative.overflow-hidden.section-team-hero.build-in-animate > div.position-relative.position-md-absolute.top-md-0.right-md-0.bottom-md-0.left-md-0.z-1 > div > div > div > div > a";
+    // await page.waitForSelector(btnSelector, { visible: true });
+    // const actual = await page.$eval(btnSelector, (link) => link.textContent);
+
+    // expect(actual).toContain("Sign up for free");
   });
 });
 
 describe("Github page second tests", () => {
   beforeEach(async () => {
-    await page.goto("https://github.com/features/copilot");
+    await page.goto("https://github.com/features/copilot", { timeout: 10000 });
   });
   test("The h1 copilot page header content", async () => {
     const title = "#hero-section-brand-heading";
@@ -61,12 +68,14 @@ describe("Github page second tests", () => {
   });
 
   test("Link Sponsors in Dropdown menu", async () => {
-    const btnSelector =
-      "body > div.logged-out.env-production.page-responsive.header-overlay > div.position-relative.js-header-wrapper > header > div > div.HeaderMenu--logged-out.p-responsive.height-fit.position-lg-relative.d-lg-flex.flex-column.flex-auto.pt-7.pb-4.top-0 > div > nav > ul > li:nth-child(3) > button";
-    browser.actions().mouseMove(btnSelector).perform();
-    const sponsors =
-      "body > div.logged-out.env-production.page-responsive.header-overlay > div.position-relative.js-header-wrapper > header > div > div.HeaderMenu--logged-out.p-responsive.height-fit.position-lg-relative.d-lg-flex.flex-column.flex-auto.pt-7.pb-4.top-0 > div > nav > ul > li:nth-child(3) > div > div:nth-child(1) > ul > li > a > div";
-    page.waitForSelector(sponsors, { visible: true }).click();
+    const openSource = await page.$(
+      "body > div.logged-out.env-production.page-responsive.header-overlay > div.position-relative.js-header-wrapper > header > div > div.HeaderMenu--logged-out.p-responsive.height-fit.position-lg-relative.d-lg-flex.flex-column.flex-auto.pt-7.pb-4.top-0 > div > nav > ul > li:nth-child(3) > button"
+    );
+    await openSource.hover();
+    const sponsors = await page.$(
+      "body > div.logged-out.env-production.page-responsive.header-overlay > div.position-relative.js-header-wrapper > header > div > div.HeaderMenu--logged-out.p-responsive.height-fit.position-lg-relative.d-lg-flex.flex-column.flex-auto.pt-7.pb-4.top-0 > div > nav > ul > li:nth-child(3) > div > div:nth-child(1) > ul > li > a > div > div"
+    );
+    await sponsors.click();
     const title =
       "body > div.logged-out.env-production.page-responsive > div.application-main > main > div > div.position-relative.mb-4.mb-lg-10 > div.d-flex.flex-column.flex-justify-center.text-md-center.pt-5.pt-md-8.pt-xl-12.pb-11.pb-md-12 > div > h1";
     await page.waitForSelector(title, { visible: true });
