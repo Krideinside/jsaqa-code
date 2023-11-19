@@ -25,4 +25,14 @@ module.exports = {
       throw new Error(`Not possible to type text for selector: ${selector}`);
     }
   },
+  choosePlace: async function (page, row, chair) {
+    // try {
+    let placeXPath = [
+      main / section / div[2] / div[1] / div[row] / span[chair],
+    ];
+    await page.click(placeXPath);
+    // } catch (error) {
+    //   throw new Error(`Selector is not clickable: placeXPath}`);
+    // }
+  },
 };
