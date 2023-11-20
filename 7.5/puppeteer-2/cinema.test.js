@@ -23,10 +23,9 @@ describe("Cinema page tests", () => {
       "body > main > section:nth-child(1) > div.movie-seances__hall > ul > li > a"
     );
     await choosePlace(page, 4, 5);
-    const actual = await page.$eval("button.acceptin-button", (e) =>
-      e.getAttribute("disabled")
-    );
-    expect(actual).toContain(null);
+    await clickElement(page, "button.acceptin-button");
+    const actual = await getText(page, "h2.ticket__check-title");
+    expect(actual).toContain("Вы выбрали билеты:");
   });
 
   test("choose active place on Terminator wednesday 10:00", async () => {
@@ -39,10 +38,9 @@ describe("Cinema page tests", () => {
       "body > main > section:nth-child(2) > div.movie-seances__hall > ul > li > a"
     );
     await choosePlace(page, 5, 7);
-    const actual = await page.$eval("button.acceptin-button", (e) =>
-      e.getAttribute("disabled")
-    );
-    expect(actual).toContain(null);
+    await clickElement(page, "button.acceptin-button");
+    const actual = await getText(page, "h2.ticket__check-title");
+    expect(actual).toContain("Вы выбрали билеты:");
   });
 
   test("choose not active place on Zveropolis wednesday 11:00", async () => {
