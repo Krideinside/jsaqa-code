@@ -26,13 +26,11 @@ module.exports = {
     }
   },
   choosePlace: async function (page, row, chair) {
-    // try {
-    let placeXPath = [
-      main / section / div[2] / div[1] / div[row] / span[chair],
-    ];
-    await page.click(placeXPath);
-    // } catch (error) {
-    //   throw new Error(`Selector is not clickable: placeXPath}`);
-    // }
+    try {
+      let selector = `body > main > section > div.buying-scheme > div.buying-scheme__wrapper > div:nth-child(${row}) > span:nth-child(${chair})`;
+      await page.click(selector);
+    } catch (error) {
+      throw new Error(`Selector is not clickable: ${selector}`);
+    }
   },
 };
