@@ -24,9 +24,27 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("login", (login, password) => {
+Cypress.Commands.add("login", (email, password) => {
   cy.contains("Log in").click();
-  cy.get("#mail").type(login);
-  cy.get("#pass").type(password);
+  if (email) {
+    cy.get("#mail").type(email);
+  }
+  if (password) {
+    cy.get("#pass").type(password);
+  }
+  cy.contains("Submit").click();
+});
+
+Cypress.Commands.add("addBook", (title, description, authors) => {
+  cy.contains("Add new").click();
+  if (title) {
+    cy.get("#title").type(title);
+  }
+  if (description) {
+    cy.get("#description").type(description);
+  }
+  if (authors) {
+    cy.get("#authors").type(authors);
+  }
   cy.contains("Submit").click();
 });
