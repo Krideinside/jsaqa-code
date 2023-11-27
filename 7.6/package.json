@@ -4,11 +4,20 @@
   "description": "first tests with Cypress",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cypress run",
+    "test:chromeHeadedNotepad": "npx cypress run --browser chrome --headed --config-file cypressNotepad.config.js",
+    "test:chromeHeadlessNotepad": "npx cypress run --browser chrome --headless --config-file cypressNotepad.config.js",
+    "test:chromeHeadedMobile": "npx cypress run --browser chrome --headed --config-file cypressMobile.config.js",
+    "test:chromeHeadlessMobile": "npx cypress run --browser chrome --headless --config-file cypressMobile.config.js",
+    "test:edgeHeadedNotepad": "npx cypress run --browser edge --headed --config-file cypressNotepad.config.js",
+    "test:edgeHeadlessNotepad": "npx cypress run --browser edge --headless --config-file cypressNotepad.config.js",
+    "test:edgeHeadedMobile": "npx cypress run --browser edge --headed --config-file cypressMobile.config.js",
+    "test:edgeHeadlessMobile": "npx cypress run --browser edge --headless --config-file cypressMobile.config.js"
   },
   "author": "OM",
   "license": "ISC",
-  "dependencies": {
-    "cypress": "^8.3.0"
-  }
+  "devDependencies": {
+    "cypress": "^13.6.0"
+  },
+  "keywords": []
 }
