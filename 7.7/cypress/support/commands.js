@@ -10,8 +10,15 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
+Cypress.Commands.add("login", (email, password) => {
+  if (email) {
+    cy.get('[for="email"] > .login__input').type(email);
+  }
+  if (password) {
+    cy.get('[for="pwd"] > .login__input').type(password);
+  }
+  cy.get(".login__button").click();
+});
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
